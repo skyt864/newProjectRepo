@@ -12,10 +12,11 @@ if(isset($_POST['submit'])){
   $description = isset($_POST['textfield'])?$_POST['textfield']:'';
   $image = $_FILES['small-medium']['name'];
   $source = $_FILES['small-medium']['tmp_name'];
+  $color = implode(",", $_POST['color']);
 
     if (move_uploaded_file($source, "productImage/".$image)) {
         
-      $sql = "INSERT INTO products(`Name`,`Price`,`Image`,`Category`,`Tags`,`Description`)VALUES('$username', '$price' , '$image', '$category' , '$tags', '$description')";
+      $sql = "INSERT INTO products(`Name`,`Price`,`Image`,`Category`,`Tags`,`Description`, `color`)VALUES('$username', '$price' , '$image', '$category' , '$tags', '$description', '$color')";
         
     } else {
         echo "Image NOt Upload";
@@ -42,4 +43,5 @@ if(isset($_POST['submit'])){
    <?php endforeach; ?>
    </ul>
    <?php endif; ?>
+ 
  
