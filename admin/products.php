@@ -58,6 +58,7 @@
 			<th>Image</th>
 			<th>Category</th>
 			<th>Tags</th>
+			<th>Colors</th>
 			<th>Description</th>
 			<th>Action</th>
 			</tr>
@@ -102,6 +103,7 @@
 			<td><img src="productImage/<?php echo $data['Image'] ?>" alt="" height="100" width="100"></td>
 			<td><?php echo $data['Category'] ?></td>
 			<td><?php echo $data['Tags'] ?></td>
+			<td><?php echo $data['color'] ?></td>
 			<td><?php echo $data['Description'] ?></td>
 			<td>
 			<!-- Icons -->
@@ -142,21 +144,48 @@
 			<p>
 			<label>Category</label>
 			<select name="dropdown" class="small-input">
-			<option value="1">Men</option>
-			<option value="2">Women</option>
-			<option value="3">Kids</option>
+			<?php
+				$sql = "SELECT * FROM category";
+				$res = mysqli_query($conn, $sql);
+				while ($row = mysqli_fetch_assoc($res)) {
+			?>
+			<option value="<?php echo $row['Categories Name'] ?>"><?php echo $row['Categories Name'] ?></option>
+			<?php } ?>
+			<!-- <option value="women">Women</option>
+			<option value="kids">Kids</option>
 			<option value="4">Electronics</option>
-			<option value="5">Sports</option>
+			<option value="5">Sports</option> -->
 			</select >
 			</p>
 			<p>
 			<label>Tags</label>
-			<input type="checkbox" name="fashion[]" value="fashion" /> Fashion
-			<input type="checkbox" name="fashion[]" value="ecommerce" /> Ecommerce
+			<?php
+				$sql = "SELECT * FROM tags";
+				$res = mysqli_query($conn, $sql);
+				while ($row = mysqli_fetch_assoc($res)) {
+			?>
+			<input type="checkbox" name="fashion[]" value="<?php echo $row['Tags Name']  ?>" /> <?php echo $row['Tags Name']  ?>
+				<?php } ?>
+			<!-- <input type="checkbox" name="fashion[]" value="ecommerce" /> Ecommerce
 			<input type="checkbox" name="fashion[]" value="shop" /> Shop
 			<input type="checkbox" name="fashion[]" value="handbag" /> Hand Bag
 			<input type="checkbox" name="fashion[]" value="laptop"/> Laptop
-			<input type="checkbox" name="fashion[]" value="headphone" /> Headphone
+			<input type="checkbox" name="fashion[]" value="headphone" /> Headphone -->
+			</p>
+			<p>
+			<label>Color</label>
+			<?php
+				$sql = "SELECT * FROM colors";
+				$res = mysqli_query($conn, $sql);
+				while ($row = mysqli_fetch_assoc($res)) {
+			?>
+			<input type="checkbox" name="color[]" value="<?php echo $row['Color']  ?>" /> <?php echo $row['Color']  ?>
+				<?php } ?>
+			<!-- <input type="checkbox" name="fashion[]" value="ecommerce" /> Ecommerce
+			<input type="checkbox" name="fashion[]" value="shop" /> Shop
+			<input type="checkbox" name="fashion[]" value="handbag" /> Hand Bag
+			<input type="checkbox" name="fashion[]" value="laptop"/> Laptop
+			<input type="checkbox" name="fashion[]" value="headphone" /> Headphone -->
 			</p>
 
 			<p>
