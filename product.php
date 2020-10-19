@@ -1,4 +1,4 @@
-      <?php
+           <?php
       session_start();
       
       require 'admin/config.php';
@@ -91,20 +91,32 @@
           <div class="aa-product-catg-body">
             <ul class="aa-product-catg">
               <!-- start single product item -->
-              <?php
-              $sql = "SELECT * FROM products";
-              $res = mysqli_query($conn, $sql);
-              while ($data = mysqli_fetch_assoc($res)) {
+              <?php 
+                if (isset($_GET['cname']) && $_GET['cname'] != "") {
+                  $cname = $_GET['cname'];
+                  $limit = 12;
+                $stratFrom = '';
+                    if (isset($_GET['akash'])) {
+                        $akash = $_GET['akash'];
+                    } else {
+                        $akash = 1;
+                    }
+                    $stratFrom = ($akash-1)*$limit;
 
-              ?>
-              <li>
+                  $sql = "SELECT * FROM products WHERE `Category` = '$cname' LIMIT $stratFrom, $limit";
+                  $res = mysqli_query($conn, $sql);
+                  while ($data = mysqli_fetch_assoc($res)) {
+                  
+                  ?>
+                      <li>
                 <figure>
-                  <a class="aa-product-img" href="product-detail.php?id=<?php echo $data['id']; ?>"><img src="admin/productImage/<?php echo $data['Image']; ?>" alt="polo shirt img"
-                  width="250" height="300"></a>
+                  <a class="aa-product-img" href="product-detail.php?id=<?php echo $data['id']; ?>">
+                  <img src="admin/productImage/<?php echo  $data['Image']; ?>" alt="polo shirt img" width="250" height="300">
+                  </a>
                   <a class="aa-add-card-btn"href="product.php?pid=<?php echo $data['id']; ?>"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                   <figcaption>
                     <h4 class="aa-product-title"><a href="#"><?php echo $data['Name']; ?></a></h4>
-                    <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                    <span class="aa-product-price">$<?php echo $data['Price'] ?></span><span class="aa-product-price"><del>$65.50</del></span>
                     <p class="aa-product-descrip">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam accusamus facere iusto, autem soluta amet sapiente ratione inventore nesciunt a, maxime quasi consectetur, rerum illum.</p>
                   </figcaption>
                 </figure>                         
@@ -116,7 +128,124 @@
                 <!-- product badge -->
                 <span class="aa-badge aa-sale" href="#">SALE!</span>
               </li>
-              <?php } ?>
+                  <?php
+
+                } 
+              } else if (isset($_GET['tag']) && $_GET['tag'] != "") {
+                $tag = $_GET['tag'];
+                $limit = 12;
+              $stratFrom = '';
+                  if (isset($_GET['akash'])) {
+                      $akash = $_GET['akash'];
+                  } else {
+                      $akash = 1;
+                  }
+                  $stratFrom = ($akash-1)*$limit;
+
+                $sql = "SELECT * FROM products WHERE `Tags` = '$tag' LIMIT $stratFrom, $limit";
+                $res = mysqli_query($conn, $sql);
+                while ($data = mysqli_fetch_assoc($res)) {
+                
+                ?>
+                    <li>
+              <figure>
+                <a class="aa-product-img" href="product-detail.php?id=<?php echo $data['id']; ?>">
+                <img src="admin/productImage/<?php echo  $data['Image']; ?>" alt="polo shirt img" width="250" height="300">
+                </a>
+                <a class="aa-add-card-btn"href="product.php?pid=<?php echo $data['id']; ?>"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                <figcaption>
+                  <h4 class="aa-product-title"><a href="#"><?php echo $data['Name']; ?></a></h4>
+                  <span class="aa-product-price">$<?php echo $data['Price'] ?></span><span class="aa-product-price"><del>$65.50</del></span>
+                  <p class="aa-product-descrip">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam accusamus facere iusto, autem soluta amet sapiente ratione inventore nesciunt a, maxime quasi consectetur, rerum illum.</p>
+                </figcaption>
+              </figure>                         
+              <div class="aa-product-hvr-content">
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+              </div>
+              <!-- product badge -->
+              <span class="aa-badge aa-sale" href="#">SALE!</span>
+            </li>
+                <?php
+
+              }
+            } else if (isset($_GET['color']) && $_GET['color'] != "") {
+              $color = $_GET['color'];
+              $limit = 12;
+            $stratFrom = '';
+                if (isset($_GET['akash'])) {
+                    $akash = $_GET['akash'];
+                } else {
+                    $akash = 1;
+                }
+                $stratFrom = ($akash-1)*$limit;
+
+              $sql = "SELECT * FROM products WHERE `color` = '$color' LIMIT $stratFrom, $limit";
+              $res = mysqli_query($conn, $sql);
+              while ($data = mysqli_fetch_assoc($res)) {
+              
+              ?>
+                  <li>
+            <figure>
+              <a class="aa-product-img" href="product-detail.php?id=<?php echo $data['id']; ?>">
+              <img src="admin/productImage/<?php echo  $data['Image']; ?>" alt="polo shirt img" width="250" height="300">
+              </a>
+              <a class="aa-add-card-btn"href="product.php?pid=<?php echo $data['id']; ?>"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+              <figcaption>
+                <h4 class="aa-product-title"><a href="#"><?php echo $data['Name']; ?></a></h4>
+                <span class="aa-product-price">$<?php echo $data['Price'] ?></span><span class="aa-product-price"><del>$65.50</del></span>
+                <p class="aa-product-descrip">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam accusamus facere iusto, autem soluta amet sapiente ratione inventore nesciunt a, maxime quasi consectetur, rerum illum.</p>
+              </figcaption>
+            </figure>                         
+            <div class="aa-product-hvr-content">
+              <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+              <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+              <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+            </div>
+            <!-- product badge -->
+            <span class="aa-badge aa-sale" href="#">SALE!</span>
+          </li>
+              <?php
+
+            } 
+           } else {
+                $limit = 12;
+                $stratFrom = '';
+                    if (isset($_GET['akash'])) {
+                        $akash = $_GET['akash'];
+                    } else {
+                        $akash = 1;
+                    }
+                    $stratFrom = ($akash-1)*$limit;
+              
+              $sql = "SELECT * FROM products ORDER BY id DESC LIMIT $stratFrom, $limit";
+              $res = mysqli_query($conn, $sql);
+              while ($data = mysqli_fetch_assoc($res)) {
+
+              ?>
+              <li>
+                <figure>
+                  <a class="aa-product-img" href="product-detail.php?id=<?php echo $data['id']; ?>">
+                  <img src="admin/productImage/<?php echo  $data['Image']; ?>" alt="polo shirt img" width="250" height="300">
+                  </a>
+                  <a class="aa-add-card-btn"href="product.php?pid=<?php echo $data['id']; ?>"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                  <figcaption>
+                    <h4 class="aa-product-title"><a href="#"><?php echo $data['Name']; ?></a></h4>
+                    <span class="aa-product-price">$<?php echo $data['Price'] ?></span><span class="aa-product-price"><del>$65.50</del></span>
+                    <p class="aa-product-descrip">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam accusamus facere iusto, autem soluta amet sapiente ratione inventore nesciunt a, maxime quasi consectetur, rerum illum.</p>
+                  </figcaption>
+                </figure>                         
+                <div class="aa-product-hvr-content">
+                  <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                </div>
+                <!-- product badge -->
+                <span class="aa-badge aa-sale" href="#">SALE!</span>
+              </li>
+              <?php } 
+              }?>
               <!-- start single product item -->
                                                       
             </ul>
@@ -206,21 +335,32 @@
           <div class="aa-product-catg-pagination">
             <nav>
               <ul class="pagination">
-                <li>
+              <?php 
+                    $sql = "SELECT COUNT(ID) FROM products";
+                    $res = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_row($res);
+                    $totalRow = $row[0];
+                    $totalPage = ceil($totalRow / $limit);
+                    
+                ?>
+                <!-- <li>
                   <a href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                   </a>
-                </li>
-                <li><a href="#">1</a></li>
+                </li> -->
+                <?php for ($i = 1; $i <= $totalPage; $i++) { ?>
+                  <li><a href="product.php?akash=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                  <?php } ?>
+                <!-- <li><a href="#">1</a></li>
                 <li><a href="#">2</a></li>
                 <li><a href="#">3</a></li>
                 <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
+                <li><a href="#">5</a></li> -->
+                <!-- <li>
                   <a href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </nav>
           </div>
@@ -237,7 +377,7 @@
               $res = mysqli_query($conn, $sql);
               while($data = mysqli_fetch_assoc($res)) {
               ?>
-              <li><a href="#"><?php echo $data['Categories Name'] ?></a></li>
+              <li><a href="product.php?cname=<?php echo $data['Categories Name'] ?>"><?php echo $data['Categories Name'] ?></a></li>
               <?php } ?>
               <!-- <li><a href="">Women</a></li>
               <li><a href="">Kids</a></li>
@@ -254,8 +394,8 @@
               $res = mysqli_query($conn, $sql);
               while($data = mysqli_fetch_assoc($res)) {
               ?>
-              <a href="#"><?php echo $data['Tags Name'] ?></a>
-              <?php } ?>ro
+              <a href="product.php?tag=<?php echo $data['Tags Name'] ?>"><?php echo $data['Tags Name'] ?></a>
+              <?php } ?>
               <!-- <a href="#">Ecommerce</a>
               <a href="#">Shop</a>
               <a href="#">Hand Bag</a>
@@ -269,14 +409,14 @@
             <h3>Shop By Price</h3>              
             <!-- price range -->
             <div class="aa-sidebar-price-range">
-              <form action="">
-                <div id="skipstep" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
-                </div>
-                <span id="skip-value-lower" class="example-val">30.00</span>
-                <span id="skip-value-upper" class="example-val">100.00</span>
-                <button class="aa-filter-btn" type="submit">Filter</button>
-              </form>
-            </div>              
+               <form action="">
+                  <div id="skipstep" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                  </div>
+                  <span id="skip-value-lower" class="example-val">30.00</span>
+                 <span id="skip-value-upper" class="example-val">100.00</span>
+                 <button class="aa-filter-btn" type="submit">Filter</button>
+               </form>
+              </div>              
 
           </div>
           <!-- single sidebar -->
@@ -288,7 +428,7 @@
               $res = mysqli_query($conn, $sql);
               while($data = mysqli_fetch_assoc($res)) {
               ?>
-              <a class="aa-color-<?php echo $data['Color'] ?>" href="#"></a>
+              <a class="aa-color-<?php echo $data['Color'] ?>" href="product.php?color=<?php echo $data['Color']; ?>"></a>
               <?php } ?>
               <!-- <a class="aa-color-green" href="#"></a>
               <a class="aa-color-yellow" href="#"></a>
