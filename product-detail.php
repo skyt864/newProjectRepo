@@ -2,8 +2,10 @@
   require 'header.php';
   require 'admin/config.php';
 
-  $id = $_GET['id'];
-  $sql = "SELECT * FROM products WHERE id='$id' ";
+  $id = $_GET['id']; 
+  // echo $id;
+  // exit();
+  $sql = "SELECT * FROM products WHERE id='$id'";
   $res = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($res);
 ?>
