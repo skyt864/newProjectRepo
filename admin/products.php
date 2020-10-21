@@ -107,7 +107,7 @@
 			<td><?php echo $data['Description'] ?></td>
 			<td>
 			<!-- Icons -->
-			<a href="#" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
+			<a href="editProduct.php?id=<?php echo $data['id']; ?>" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
 			<a href="products.php?id=<?php echo $data['id'] ?>" title="Delete"><img src="resources/images/icons/cross.png" alt="Delete" /></a> 
 			<!-- <a href="#" title="Edit Meta"><img src="resources/images/icons/hammer_screwdriver.png" alt="Edit Meta" /></a> -->
 			</td>
